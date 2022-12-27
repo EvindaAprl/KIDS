@@ -1,9 +1,9 @@
-name "ProgramEvinda"
+name "Program Evinda Apriliani"
 org 100h
 
 jmp tanya1
-soal1 db 'Selamat Datang di Program'
-      db 13,10,'Kuis Informatika'
+soal1 db 'Selamat Datang di Program!!'
+      db 13,10,13,10,'Kuis Informatika'
       db 13,10,'1. Yang termasuk input device adalah...'
       db 13,10,'   a. Speaker'
       db 13,10,'   b. Proyektor'
@@ -12,8 +12,9 @@ soal1 db 'Selamat Datang di Program'
            
       jawab1 db 2
       jawaban1 db 'c'
-      skor dw 00h
-      hasil db 13,10,'Skor kamu : $'
+      skor dw 0
+      akhir db 13,10,'Skor kamu : $'
+      hasil dw 0
       
 tanya1:
     mov ah,09h
@@ -35,6 +36,8 @@ tanya1:
     
 benar1:
     inc skor
+
+
 
 kuis2: jmp tanya2
 soal2  db 13,10,13,10,'2. Sistem operasi dan aplikasi merupakan...'
@@ -65,6 +68,8 @@ tanya2:
     
 benar2:
     inc skor    
+
+
     
 kuis3: jmp tanya3
 soal3  db 13,10,13,10,'3. Bilangan aritmatika berbasis 10 adalah...'
@@ -75,8 +80,7 @@ soal3  db 13,10,13,10,'3. Bilangan aritmatika berbasis 10 adalah...'
            
        jawab3 db 2
        jawaban3 db 'c'
-       
-       
+           
 tanya3:
     mov ah,09h
     lea dx,soal3
@@ -96,6 +100,8 @@ tanya3:
     
 benar3:
     inc skor
+
+
 
 kuis4: jmp tanya4
 soal4   db 13,10,13,10,'4. Di bawah ini karateristik sistem cloud computing, kecuali...'
@@ -123,24 +129,33 @@ tanya4:
     cld
     rep cmpsb
     je benar4
-    jne akhir
+    jne last
     
 benar4:
     inc skor
         
-akhir:
+last:
     mov ax, skor
-    mov bx, 31h
+    mov bx, 25
     mul bx
-    mov skor, ax
+    mov hasil, ax
+    
+    mov ah, 00h
+    mov al, hasil
+    aam
     
     mov ah, 09h
-    lea dx, hasil 
+    lea dx, akhir 
     int 21h
     
     mov ah, 02h
-    lea dx, skor 
+    mov dl, ah 
     int 21h
+    
+    mov ah, 02h
+    mov dl, al 
+    int 21h
+    
     int 20h                
 ret
 
