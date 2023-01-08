@@ -35,9 +35,9 @@ tanya1:
     jne kuis2
     
 benar1:
-    inc skor
-
-
+    mov ax, skor
+    add ax, 25
+    mov skor, ax
 
 kuis2: jmp tanya2
 soal2  db 13,10,13,10,'2. Sistem operasi dan aplikasi merupakan...'
@@ -67,9 +67,9 @@ tanya2:
     jne kuis3
     
 benar2:
-    inc skor    
-
-
+    mov ax, skor
+    add ax, 25
+    mov skor, ax    
     
 kuis3: jmp tanya3
 soal3  db 13,10,13,10,'3. Bilangan aritmatika berbasis 10 adalah...'
@@ -99,9 +99,9 @@ tanya3:
     jne kuis4
     
 benar3:
-    inc skor
-
-
+    mov ax, skor
+    add ax, 25
+    mov skor, ax
 
 kuis4: jmp tanya4
 soal4   db 13,10,13,10,'4. Di bawah ini karateristik sistem cloud computing, kecuali...'
@@ -111,7 +111,7 @@ soal4   db 13,10,13,10,'4. Di bawah ini karateristik sistem cloud computing, kec
         db 13,10,' Jawabanmu : $'
            
         jawab4 db 2
-        jawaban4 db 'a'
+        jawaban4 db 'b'
         
 tanya4:
     mov ah,09h
@@ -132,12 +132,12 @@ tanya4:
     jne last
     
 benar4:
-    inc skor
+    mov ax, skor
+    add ax, 25
+    mov skor, ax
         
 last:
     mov ax, skor
-    mov bx, 25
-    mul bx
     mov hasil, ax
     
     mov ah, 00h
@@ -149,11 +149,8 @@ last:
     int 21h
     
     mov ah, 02h
-    mov dl, ah 
-    int 21h
-    
-    mov ah, 02h
-    mov dl, al 
+    mov hasil, al
+    mov dl, hasil 
     int 21h
     
     int 20h                
